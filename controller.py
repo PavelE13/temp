@@ -10,7 +10,8 @@ def run():
         
         match input('?'):
             case '1':#1.Открыть справочник
-                data = model.read_phonebook
+                print(end='')
+                data = model.read_phonebook()
                 view.showcontact(data)
             case '2':#2.Поиск
                 model.find()
@@ -21,4 +22,7 @@ def run():
             case '5':#5.Закрыть справочник
                 break
             case _:
-                view.message()
+                message()
+                
+def message ():
+    print('Введены не корректные данные. Введите корректные данные!')

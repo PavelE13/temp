@@ -1,9 +1,9 @@
-import view
+import controller
 
 def read_phonebook():
-    with open('file_name.txt', 'r', encoding='utf-8') as file:
-        pass
-        return
+    with open('file.txt', 'r', encoding='utf-8') as file:
+        return file.readlines()
+        
 
 def add_rec():
     
@@ -23,5 +23,5 @@ def add_rec():
                 file.close
                 return contact
             case _:
-                view.message()
+                controller.message()
                 return
