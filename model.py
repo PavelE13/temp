@@ -15,19 +15,20 @@ def add_rec():
         file = open("file.txt", "a", encoding='utf-8')
         contact = first_name + ' ' + last_name + ' ' + code_count + ' ' + phone + '\n'
         file.write(contact)
+        file.close
         
-        match input('Добавить ещё контакт(y/n)?'):
+        match controller.input_data('Добавить ещё контакт(y/n)?'):
             case 'y':
                 continue
             case 'n':          
                 file.close
                 return contact
             case _:
-                controller.message()
+                controller.message('Введены не корректные данные. Введите корректные данные!')
                 return
 
 def find():
-    f = input("Введите элемент поиска: ")
+    f = controller.input_data("Введите элемент поиска: ")
     lines = read_phonebook()
     count = 0
     flag=False
@@ -40,4 +41,35 @@ def find():
     if flag:
         print(f'Найдено {count} контактов. Поиск завершен!')
     else:
-        print('Контакт не найден')
+        controller.message('Контакт не найден')
+  
+        
+def delete(choice_key):
+    lines = enumerate(read_phonebook())
+    with open('file1.txt', 'w', encoding='utf-8') as files:
+        for key, value in lines:
+            if choice_key != key:
+                files.writelines(value)
+          
+
+def edit(choice_key):
+    lines = read_phonebook()
+    count = 1
+    new_lines_tmp = ''
+    with open('file2.txt', 'w', encoding='utf-8') as files:
+        for line in lines:
+            if choice_key == count:
+                new_lines_tmp = change_rec()
+            else:
+                new_lines_tmp = line
+            files.write(new_lines_tmp)
+            count +=1
+         
+            
+def change_rec():
+    first_name = input('Введите имя: ')
+    last_name = input('Введите фамилию:')
+    code_count = input('Введите код страны:')
+    phone = input("Введите телефон:")
+    contact = first_name + ' ' + last_name + ' ' + code_count + ' ' + phone + '\n'
+    return contact
